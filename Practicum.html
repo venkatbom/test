@@ -1,0 +1,52 @@
+<html>
+<head>
+<style>
+body {
+    background-color: grey;
+}
+div {
+    background-color: lightgrey;
+    width: 300px;
+    border: 5px solid green;
+    padding: 25px;
+
+    margin-top: 100px;
+    margin-bottom: 100px;
+    margin-right: 150px;
+    margin-left: 80px;
+}
+p.inset {border-style: inset;}
+</style>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+
+<script>
+   
+   function callgitapi() {
+      
+ var gitname =  $("#txt_gitname").val();
+ 
+ var url = "https://api.github.com/users/"+gitname+"/repos";
+ 
+ $.getJSON( url, 
+  function(data) 
+  {
+   var items = [];
+
+   $.each(data, 
+   function( key, val ) {
+    items.push( "<li id='" + key + "'>" + val.name + "</li>" );
+      });
+ 
+  $('#ui_repolist').empty();
+        $('#ui_repolist').append(items.join( " " ));
+ 
+  });
+    }
+  
+</script>
+</head>
+<body>
+<div>Enter Git User Name:  <input id="txt_gitname" type="text" ></input>
+<input id="btn_getrepo" type="button" value="Display" onclick="callgitapi()" />
+<ul id="ui_repolist"><ul></div>
+</body>
